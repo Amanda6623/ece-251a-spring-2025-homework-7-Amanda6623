@@ -20,17 +20,18 @@ The sign-extend is only used for immediate-type instructions. The data memory do
 #2 (textbook exercise 4.5)
 In this exercise, we examine in detail how an instruction is executed in a single-cycle datapath. Problems in this exercise refer to a clock cycle in which the processor fetches the following instruction word: 0x00c6ba23.\
 #2.a <§4.4> What are the values of the ALU control unit’s inputs for this instruction?\
-100011 is input into the ALU control unit and it outputs subu\
+ALU op code is 10 and ALU control unit's input is 0110 and it outputs subu\
 #2.b <§4.4> What is the new PC address after this instruction is executed? Highlight the path through which this value is determined.\
-Current PC -> Adder -> PC + 4 -> PC Register\
+Current PC -> Adder -> PC + 4\
 #2.d <§4.4> For each mux, show the values of its inputs and outputs during the execution of this instruction. List values that are register outputs at Reg [xn].\
-ALUSrc: input = Reg[$a2] (rt) ALUSrc = 0, output = Reg[$a2]\
-MemtoReg: input = ALU result, Mem data MemtoReg = 0, output = ALU result\
+ALUSrc: input = Reg[$a2], 1111 1111 1111 1111 1011 1010 0010 0011, ALUSrc = 0, output = Reg[$a2]\
+MemtoReg: input = Reg[$a2] - Reg[$a2], don't care, MemtoReg = 0, output = Reg[$a2] - Reg[$a2]\
 RegDst: input = rt ($a2), rd ($s7), RegDst = 1, output = $s7\
+PCSrc: input = PC + 4, 1111 1111 1111 1110 1110 1000 1000 1100, PCSrc = 0, output = PC + 4
 #2.e  <§4.4> What are the input values for the ALU and the two add units?\
-ALU: Input1: Reg[$a2], Input2: Reg[$a2], Output: Reg[$a2] - Reg[$a2]\
-Adder 1: Input: PC, Output: PC + 4\
-Adder 2:Not used\
+ALU: Input: Reg[$a2], Reg[$a2]\
+Adder 1: Input: PC, 4
+Adder 2: Input: PC + 4, 1111 1111 1111 1110 1110 1000 1000 1100
 #2.f  <§4.4> What are the values of all inputs for the registers unit?\
 Read Register 1: $a2\
 Read Register 2: $a2\
